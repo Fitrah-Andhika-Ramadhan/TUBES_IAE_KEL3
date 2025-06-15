@@ -1,0 +1,192 @@
+version: '3.8'
+
+services:
+  db:
+    image: mysql:8.0
+    container_name: travel_agency_db
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: your_actual_strong_root_password # !!! REPLACE THIS !!!
+      MYSQL_DATABASE: travel_agency_db
+      MYSQL_USER: travel_user
+      MYSQL_PASSWORD: your_actual_strong_user_password    # !!! REPLACE THIS !!!
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./db_init:/docker-entrypoint-initdb.d
+    healthcheck:
+      test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost", "-utravel_user", "-pyour_actual_strong_user_password"] # Replace this
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  users-service:
+    build:
+      context: ./services/users-service
+      dockerfile: Dockerfile
+    container_name: users-service
+    restart: unless-stopped
+    ports:
+      - "3001:3001"
+    environment:
+      PORT: 3001
+      DB_HOST: db
+      DB_USER: travel_user
+      DB_PASSWORD: your_actual_strong_user_password # !!! REPLACE THIS !!!
+      DB_NAME: travel_agency_db
+      JWT_SECRET: your_actual_super_secret_jwt_key # !!! REPLACE THIS !!!
+    depends_on:
+      db:
+        condition: service_healthy
+
+  flight-service:
+    build:
+      context: ./services/flight-service
+      dockerfile: Dockerfile
+    container_name: flight-service
+    restart: unless-stopped
+    ports:
+      - "3002:3002"
+    environment:
+      PORT: 3002
+      DB_HOST: db
+      DB_USER: travel_user
+      DB_PASSWORD: your_actual_strong_user_password # !!! REPLACE THIS !!!
+      DB_NAME: travel_agency_db
+    depends_on:
+      db:
+        condition: service_healthy
+
+  hotel-service:
+    build:
+      context: ./services/hotel-service
+      dockerfile: Dockerfile
+    container_name: hotel-service
+    restart: unless-stopped
+    ports:
+      - "3003:3003"
+    environment:
+      PORT: 3003
+      DB_HOST: db
+      DB_USER: travel_user
+      DB_PASSWORD: your_actual_strong_user_password # !!! REPLACE THIS !!!
+      DB_NAME: travel_agency_db
+    depends_on:
+      db:
+        condition: service_healthy
+
+  booking-service:
+    build:
+      context: ./services/booking-service
+      dockerfile: Dockerfile
+    container_name: booking-service
+    restart: unless-stopped
+    ports:
+      - "3004:3004"
+    environment:
+      PORT: 3004
+      DB_HOST: db
+      DB_USER: travel_user
+      DB_PASSWORD: your_actual_strong_user_password # !!! REPLACE THIS !!!
+      DB_NAME: travel_agency_db
+    depends_on:
+      db:
+        condition: service_healthy
+
+  payment-service:
+    build:
+      context: ./services/payment-service
+      dockerfile: Dockerfile
+    container_name: payment-service
+    restart: unless-stopped
+    ports:
+      - "3005:3005"
+    environment:
+      PORT: 3005
+      DB_HOST: db
+      DB_USER: travel_user
+      DB_PASSWORD: your_actual_strong_user_password # !!! REPLACE THIS !!!
+      DB_NAME: travel_agency_db
+    depends_on:
+      db:
+        condition: service_healthy
+
+  local-travel-service:
+    build:
+      context: ./services/local-travel-service
+      dockerfile: Dockerfile
+    container_name: local-travel-service
+    restart: unless-stopped
+    ports:
+      - "3006:3006"
+    environment:
+      PORT: 3006
+      DB_HOST: db
+      DB_USER: travel_user
+      DB_PASSWORD: your_actual_strong_user_password # !!! REPLACE THIS !!!
+      DB_NAME: travel_agency_db
+    depends_on:
+      db:
+        condition: service_healthy
+
+  train-service:
+    build:
+      context: ./services/train-service
+      dockerfile: Dockerfile
+    container_name: train-service
+    restart: unless-stopped
+    ports:
+      - "3007:3007"
+    environment:
+      PORT: 3007
+      DB_HOST: db
+      DB_USER: travel_user
+      DB_PASSWORD: your_actual_strong_user_password # !!! REPLACE THIS !!!
+      DB_NAME: travel_agency_db
+    depends_on:
+      db:
+        condition: service_healthy
+
+  api-gateway:
+    build:
+      context: ./api-gateway
+      dockerfile: Dockerfile
+    container_name: api-gateway
+    restart: unless-stopped
+    ports:
+      - "4000:4000"
+    environment:
+      PORT: 4000
+      JWT_SECRET: your_actual_super_secret_jwt_key # !!! REPLACE THIS !!!
+      USERS_SERVICE_URL: http://users-service:3001
+      FLIGHTS_SERVICE_URL: http://flight-service:3002
+      HOTELS_SERVICE_URL: http://hotel-service:3003
+      BOOKINGS_SERVICE_URL: http://booking-service:3004
+      PAYMENTS_SERVICE_URL: http://payment-service:3005
+      LOCAL_TRAVEL_SERVICE_URL: http://local-travel-service:3006
+      TRAINS_SERVICE_URL: http://train-service:3007
+      EXTERNAL_USER_SERVICE_URL: http://host.docker.internal:4001 # For externally running user service
+    depends_on:
+      - users-service
+      - flight-service
+      - hotel-service
+      - booking-service
+      - payment-service
+      - local-travel-service
+      - train-service
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: frontend
+    restart: unless-stopped
+    ports:
+      - "80:80"
+    depends_on:
+      - api-gateway
+
+volumes:
+  mysql_data:
+    driver: local

@@ -1,0 +1,354 @@
+.train-list-container {
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.train-list-container h1 {
+  color: #1a73e8;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+/* Filter styles */
+.filter-container {
+  background-color: #f5f5f5;
+  padding: 15px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.filter-container h3 {
+  margin-top: 0;
+  margin-bottom: 15px;
+  color: #333;
+}
+
+.filter-form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.filter-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.filter-group {
+  flex: 1;
+  min-width: 200px;
+}
+
+.filter-group label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: 500;
+  color: #555;
+}
+
+.filter-group input,
+.filter-group select {
+  width: 100%;
+  padding: 8px 12px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+.filter-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.btn-primary {
+  background-color: #1a73e8;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background-color 0.2s;
+}
+
+.btn-primary:hover {
+  background-color: #1557b0;
+}
+
+.btn-secondary {
+  background-color: #f1f1f1;
+  color: #333;
+  border: 1px solid #ddd;
+  padding: 10px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background-color 0.2s;
+}
+
+.btn-secondary:hover {
+  background-color: #e1e1e1;
+}
+
+/* Train table styles */
+.train-count {
+  margin-bottom: 10px;
+  font-size: 14px;
+  color: #666;
+}
+
+.train-table-container {
+  overflow-x: auto;
+  margin-bottom: 20px;
+}
+
+.train-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+.train-table th {
+  background-color: #f1f1f1;
+  padding: 12px;
+  text-align: left;
+  border-bottom: 2px solid #ddd;
+  cursor: pointer;
+  position: relative;
+}
+
+.train-table th:hover {
+  background-color: #e1e1e1;
+}
+
+.sort-icon {
+  margin-left: 5px;
+  font-size: 12px;
+}
+
+.train-table td {
+  padding: 12px;
+  border-bottom: 1px solid #eee;
+  vertical-align: top;
+}
+
+.train-table tr:hover {
+  background-color: #f9f9f9;
+}
+
+.train-name {
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.train-operator {
+  font-size: 12px;
+  color: #666;
+}
+
+.station {
+  font-weight: 600;
+  margin-bottom: 2px;
+}
+
+.city {
+  font-size: 12px;
+  color: #666;
+  margin-bottom: 2px;
+}
+
+.time {
+  font-size: 12px;
+  color: #333;
+}
+
+.train-class-container {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.train-class {
+  display: inline-block;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 500;
+  text-transform: uppercase;
+  color: white;
+}
+
+.train-subclass {
+  display: inline-block;
+  padding: 2px 6px;
+  border-radius: 3px;
+  font-size: 11px;
+  font-weight: 400;
+  text-transform: uppercase;
+  color: #333;
+  background-color: #e0e0e0;
+  border: 1px dashed #999;
+}
+
+.train-class.ekonomi {
+  background-color: #4caf50;
+}
+
+.train-class.bisnis {
+  background-color: #2196f3;
+}
+
+.train-class.eksekutif {
+  background-color: #9c27b0;
+}
+
+.train-class.luxury {
+  background-color: #ff9800;
+}
+
+.train-type {
+  font-size: 12px;
+  font-weight: 500;
+  color: #555;
+  background-color: #f0f0f0;
+  padding: 3px 6px;
+  border-radius: 3px;
+  display: inline-block;
+}
+
+.province {
+  font-size: 11px;
+  color: #666;
+  font-style: italic;
+  margin-top: 2px;
+}
+
+.price-category {
+  display: inline-block;
+  padding: 3px 6px;
+  border-radius: 3px;
+  font-size: 11px;
+  font-weight: 500;
+}
+
+.price-category.regular {
+  background-color: #e0e0e0;
+  color: #333;
+}
+
+.price-category.promo {
+  background-color: #e3f2fd;
+  color: #0d47a1;
+  border: 1px solid #bbdefb;
+}
+
+.price-category.peak-season {
+  background-color: #ffebee;
+  color: #c62828;
+  border: 1px solid #ffcdd2;
+}
+
+.price {
+  font-weight: 600;
+  color: #1a73e8;
+}
+
+.btn-view, .btn-book {
+  display: block;
+  width: 100%;
+  padding: 6px 10px;
+  margin-bottom: 5px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 12px;
+  text-align: center;
+  border: none;
+}
+
+.btn-view {
+  background-color: #f1f1f1;
+  color: #333;
+}
+
+.btn-book {
+  background-color: #1a73e8;
+  color: white;
+}
+
+.btn-view:hover {
+  background-color: #e1e1e1;
+}
+
+.btn-book:hover {
+  background-color: #1557b0;
+}
+
+.no-data {
+  text-align: center;
+  color: #666;
+  padding: 30px 0;
+}
+
+/* Loading and error states */
+.loading, .error-message {
+  padding: 20px;
+  text-align: center;
+  border-radius: 4px;
+  margin: 20px 0;
+}
+
+.loading {
+  background-color: #f1f1f1;
+  color: #666;
+}
+
+.error-message {
+  background-color: #ffebee;
+  color: #c62828;
+}
+
+/* Pagination styles are in the common component */
+
+/* Items per page selector */
+.items-per-page {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  margin-top: 15px;
+  font-size: 14px;
+}
+
+.items-per-page label {
+  margin-right: 8px;
+}
+
+.items-per-page select {
+  padding: 5px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  margin: 0 8px;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  .filter-row {
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .filter-group {
+    min-width: 100%;
+  }
+  
+  .train-table th, .train-table td {
+    padding: 8px;
+  }
+  
+  .btn-view, .btn-book {
+    padding: 5px 8px;
+  }
+}

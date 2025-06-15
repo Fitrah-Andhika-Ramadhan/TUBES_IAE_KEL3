@@ -1,0 +1,52 @@
+openapi: 3.0.3
+info:
+  title: Local Travel Service API
+  version: 1.0.0
+  description: REST API for searching and booking local travel (e.g., rides, tours).
+servers:
+  - url: http://localhost:3006/api/local-travel
+paths:
+  /search:
+    get:
+      summary: Search for local travel options
+      parameters:
+        - name: location
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: date
+          in: query
+          required: true
+          schema:
+            type: string
+            format: date
+      responses:
+        '200':
+          description: List of available local travel options
+  /book:
+    post:
+      summary: Book a local travel option
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                userId:
+                  type: integer
+                travelId:
+                  type: integer
+                participants:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      name:
+                        type: string
+      responses:
+        '201':
+          description: Local travel booked successfully
+        '400':
+          description: Invalid input

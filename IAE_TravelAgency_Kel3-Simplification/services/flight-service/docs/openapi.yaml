@@ -1,0 +1,59 @@
+openapi: 3.0.3
+info:
+  title: Flight Service API
+  version: 1.0.0
+  description: REST API for searching and booking flights.
+servers:
+  - url: http://localhost:3002/api/flights
+paths:
+  /search:
+    get:
+      summary: Search for available flights
+      parameters:
+        - name: origin
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: destination
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: date
+          in: query
+          required: true
+          schema:
+            type: string
+            format: date
+      responses:
+        '200':
+          description: List of available flights
+  /book:
+    post:
+      summary: Book a flight
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                userId:
+                  type: integer
+                flightId:
+                  type: integer
+                passengers:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      name:
+                        type: string
+                      age:
+                        type: integer
+      responses:
+        '201':
+          description: Flight booked successfully
+        '400':
+          description: Invalid input

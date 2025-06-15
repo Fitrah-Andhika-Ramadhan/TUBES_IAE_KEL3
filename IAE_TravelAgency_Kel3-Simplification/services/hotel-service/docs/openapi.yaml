@@ -1,0 +1,60 @@
+openapi: 3.0.3
+info:
+  title: Hotel Service API
+  version: 1.0.0
+  description: REST API for searching and booking hotels.
+servers:
+  - url: http://localhost:3003/api/hotels
+paths:
+  /search:
+    get:
+      summary: Search for available hotels
+      parameters:
+        - name: location
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: checkin
+          in: query
+          required: true
+          schema:
+            type: string
+            format: date
+        - name: checkout
+          in: query
+          required: true
+          schema:
+            type: string
+            format: date
+      responses:
+        '200':
+          description: List of available hotels
+  /book:
+    post:
+      summary: Book a hotel room
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                userId:
+                  type: integer
+                hotelId:
+                  type: integer
+                guests:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      name:
+                        type: string
+                      age:
+                        type: integer
+      responses:
+        '201':
+          description: Hotel booked successfully
+        '400':
+          description: Invalid input

@@ -1,0 +1,46 @@
+openapi: 3.0.3
+info:
+  title: Payment Service API
+  version: 1.0.0
+  description: REST API for initiating and checking payments.
+servers:
+  - url: http://localhost:3005/api/payments
+paths:
+  /initiate:
+    post:
+      summary: Initiate a payment
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                userId:
+                  type: integer
+                bookingId:
+                  type: integer
+                amount:
+                  type: number
+                  format: float
+                method:
+                  type: string
+      responses:
+        '201':
+          description: Payment initiated successfully
+        '400':
+          description: Invalid input
+  /status/{paymentId}:
+    get:
+      summary: Get payment status by ID
+      parameters:
+        - name: paymentId
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Payment status
+        '404':
+          description: Payment not found
